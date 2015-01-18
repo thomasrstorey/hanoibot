@@ -2,6 +2,7 @@ var _ 			= require('underscore');
 var Twit 		= require('twit');
 var config		= require('./config.js');
 
+
 //keep .log file with current game state
 //every set interval, 
 //	read state from log file, 
@@ -92,9 +93,3 @@ module.export = function (rate, depth) {
 	that.init = init;
 	return that;
 }
-
-//ok, saving it all to a stack won't work because that defeats the purpose of recursion:
-//massive time complexity in exchange for tiny space complexity.
-//what I need is a way to recursively call a setTimeout, saving out my current state
-//to pass to the callback (maybe that's what it already does? I just need an object
-//to represent the state)
