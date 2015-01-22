@@ -67,23 +67,32 @@ module.exports = function (rate, depth) {
 	var init = function () {
 		twit = new Twit(config.twitter);
 		toh = new TOH.Tower(depth);
+		moveNum = 0;
 		// connect to mongoDB database
 		mongoose.connect(config.db.url);
-
-		moveNum = 0;
-		(function towering(){
-			setTimeout(function(){
-				var msg = convertState(toh.next());
-				if(config.test){
-					makeTest(msg);
-				} else {
-					makeTweet(msg);
-				}
-				postToDB(msg, Date.now());
-				moveNum++;
-				towering();
-			}, rate);
-		})();
+		State.count({}, function(err, count){
+			if(err){
+				console.log(err);
+			} else {
+				(function towering(start){
+					while(moveNum < count){
+						toh.next();
+						moveNum++;
+					}
+					setTimeout(function(){
+						var msg = convertState(toh.next());
+						if(config.test){
+							makeTest(msg);
+						} else {
+							makeTweet(msg);
+						}
+						postToDB(msg, Date.now());
+						moveNum++;
+						towering();
+					}, rate);
+				})();
+			}
+		});
 	};
 
 	that.init = init;

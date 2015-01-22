@@ -4,6 +4,7 @@ module.exports = function (app, passport) {
 
 	//main page
 	app.get('/', function (req, res) {
+        var data = {};
 		res.render('index.hbs');
 	});
 
