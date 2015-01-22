@@ -80,7 +80,7 @@ void Tower::shift(int N, int d, Stack<int>* t){
 			} else if (d < 0){
 				t[(i+2)%3].push(disk);
 			}
-			pretty_print(t);
+			//pretty_print(t);
 			break;
 		}
 	}
