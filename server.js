@@ -69,7 +69,7 @@ require('./app/routes.js')(app, passport); //load routes
 
 // bot ==========================================================
 
-
+require('./bot/towering.js')(io, mongoose);
 
 // run ==========================================================
 

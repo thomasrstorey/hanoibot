@@ -2,10 +2,9 @@ var _ 			= require('underscore');
 var Twit 		= require('twit');
 var config		= require('./cfg.js');
 var TOH		= require('../build/Release/toh');
-var mongoose = require('mongoose');
 var State 		  = require('../app/models/State');
 
-module.exports = function (rate, depth, io) {
+module.exports = function (rate, depth, io, mongoose) {
 	var that = {};
 	var twit;
 	var toh;
@@ -74,7 +73,7 @@ module.exports = function (rate, depth, io) {
 		toh = new TOH.Tower(depth);
 		moveNum = 0;
 		// connect to mongoDB database
-		mongoose.connect(config.db.url);
+		//mongoose.connect(config.db.url);
 		State.count({}, function(err, count){
 			if(err){
 				console.log(err);
