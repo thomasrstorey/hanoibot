@@ -22,9 +22,14 @@
 <script>
 	var socket = io();
     socket.on('move', function (doc) {
-        var mu = "<div class='row'><div class='one-third column'><div class='timestamp'>" + doc.timestamp + "</div></div><div class='two-third column'><pre>" + doc.data + "</pre></div></div>";
+        var mu = "<div class='row doc'><div class='one-third column'><div class='timestamp'>" + doc.timestamp + "</div></div><div class='two-third column'><pre>" + doc.data + "</pre></div></div>";
         var main = document.getElementById('main');
         main.innerHTML = main.innerHTML + mu;
+        window.setTimeout(function () {
+            var main = document.getElementById('main');
+            var newRow = main.childNodes[main.childNodes.length - 1];
+            newRow.className = "row";
+        }, 3000);
     });
 </script>
 </body>
