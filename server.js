@@ -3,6 +3,7 @@
 // setup =======================================================
 var express 				= require('express');
 var app      				= express();
+var http 					= require('http').Server(app);
 var port     				= process.env.PORT || 8282;
 var mongoose 				= require('mongoose');
 var passport 				= require('passport');
@@ -11,6 +12,7 @@ var cookieParser 			= require('cookie-parser');
 var bodyParser  			= require('body-parser');
 var session      			= require('express-session');
 var hbs    					= require('hbs');
+var io 						= require('socket.io')(http);
 
 var configDB 				= require('./config/db.js');
 
@@ -49,14 +51,27 @@ app.use(passport.session()); //persistent login sessions
 
 // handlebars ===================================================
 
-//app.set('view engine', 'hbs');
 app.engine('hbs', require('hbs').__express); //handlebars engine
+require('./app/handlebars.js')(hbs);
+
+// socket.io ====================================================
+
+io.on('connection', function (socket) {
+	console.log("a user connected");
+	socket.on('disconnect', function () {
+		console.log("a user disconnected")
+	});
+});
 
 // routes =======================================================
 
 require('./app/routes.js')(app, passport); //load routes
 
+// bot ==========================================================
+
+
+
 // run ==========================================================
 
-app.listen(port);
+http.listen(port);
 console.log("hanoijs launched on port " + port);

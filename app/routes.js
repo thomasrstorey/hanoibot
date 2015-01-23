@@ -1,11 +1,22 @@
 // /app/routes.js
 
+var State = require('./models/State')
+
 module.exports = function (app, passport) {
 
 	//main page
 	app.get('/', function (req, res) {
-        var data = {};
-		res.render('index.hbs');
+        State.find({}, function (err, docs) {
+            if(err){
+                console.log(err);
+                res.render('error.hbs', err);
+            } else {
+                var data = {
+                    docs : docs
+                }
+                res.render('index.hbs', data); 
+            }
+        });
 	});
 
 	//login

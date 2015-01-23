@@ -66,7 +66,7 @@ html {
 
 body {
   background: #fff;
-  font-family: "Inconsolata", "Inconsolata", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
   font-size: 14px;
@@ -81,7 +81,7 @@ body {
  * ------------------------------------------------ */
 h1, h2, h3, h4, h5, h6 {
   color: #181818;
-  font-family: "Inconsolata", "Times New Roman", serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-weight: normal; }
 
 h1 a, h2 a, h3 a,
@@ -262,7 +262,7 @@ input[type="button"] {
   color: #444;
   display: inline-block;
   font-weight: bold;
-  font-family: "Inconsolata", "Inconsolata", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-size: 1.3rem;
   text-decoration: none;
@@ -364,7 +364,7 @@ select {
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
   border-radius: 2px;
-  font-family: "Inconsolata", "Inconsolata", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   font-size: 1.5rem;
   color: #777;
@@ -740,15 +740,6 @@ input[type="checkbox"] {
   height: 0; }
 
 /* Add custom styles here */
-
-
-.timestamp {
-  float: right;
-  text-align: right;
-  color: #AEAEAE;
-}
-
-
 /* MEDIA QUERIES
  * ------------------------------------------------ */
 /* Large displays */

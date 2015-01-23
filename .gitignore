@@ -26,6 +26,7 @@ build/Release
 dev
 public/libs
 cfg.js
+auth.js
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-

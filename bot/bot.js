@@ -5,7 +5,7 @@ var TOH		= require('../build/Release/toh');
 var mongoose = require('mongoose');
 var State 		  = require('../app/models/State');
 
-module.exports = function (rate, depth) {
+module.exports = function (rate, depth, io) {
 	var that = {};
 	var twit;
 	var toh;
@@ -51,7 +51,7 @@ module.exports = function (rate, depth) {
 		return state;
 	};
 
-	var postToDB = function (str, ts) {
+	var postToDB = function (str, ts, cb) {
 		var newState = new State();
 		newState.timestamp = ts;
 		newState.data = str;
@@ -59,6 +59,11 @@ module.exports = function (rate, depth) {
 			if(err){
 				console.log(err.message);
 				throw err;
+			} else {
+				return cb(null, {
+					timestamp: ts,
+					data: str
+				});
 			}
 		});
 	};
@@ -86,7 +91,13 @@ module.exports = function (rate, depth) {
 						} else {
 							makeTweet(msg);
 						}
-						postToDB(msg, Date.now());
+						postToDB(msg, Date.now(), function(err, data){
+							if(err){
+								console.log(err);
+							} else {
+								io.emit('move', data);
+							}
+						});
 						moveNum++;
 						towering();
 					}, rate);
