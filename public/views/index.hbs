@@ -9,13 +9,13 @@
     <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div class="container" id="main">
-
+<div class="container">
     <div class="row">
-    <h1>towering</h1>
+     <h1>towering</h1>
     </div>
+</div>
+<div class="container" id="main">
     {{{ list docs }}}
-
 </div>
 <!-- ###### socket.io setup ####### -->
 <script src="https://cdn.socket.io/socket.io-1.3.2.js"></script>
@@ -24,10 +24,10 @@
     socket.on('move', function (doc) {
         var mu = "<div class='row doc'><div class='one-third column'><div class='timestamp'>" + doc.timestamp + "</div></div><div class='two-third column'><pre>" + doc.data + "</pre></div></div>";
         var main = document.getElementById('main');
-        main.innerHTML = main.innerHTML + mu;
+        main.innerHTML = mu + main.innerHTML;
         window.setTimeout(function () {
             var main = document.getElementById('main');
-            var newRow = main.childNodes[main.childNodes.length - 1];
+            var newRow = main.childNodes[0];
             newRow.className = "row";
         }, 3000);
     });
