@@ -1,12 +1,12 @@
 // /app/routes.js
 
-var State = require('./models/State')
+var State = require('./models/State');
+var Spans = require('../config/spans');
 
 module.exports = function (app, passport) {
-
 	//main page
 	app.get('/', function (req, res) {
-        State.find({}, function (err, docs) {
+        State.find({ timestamp: { $gte: Date.now() - Spans.oneDay }}, function (err, docs) {
             if(err){
                 console.log(err);
                 res.render('error.hbs', err);
