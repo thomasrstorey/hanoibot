@@ -11,18 +11,24 @@
 <body>
 <div class="container">
     <div class="row title">
-     <h4>towering</h4>
+     <h4><i class="fa fa-align-justify"></i></h4>
     </div>
 </div>
 <div class="container" id="main">
     {{{ list docs }}}
+</div>
+<div class="container" id="more">
+    <div class="row">
+        <a href="#" id="moreLink"><i class="fa fa-ellipsis-h"></i></a>
+    </div>
 </div>
 <!-- ###### socket.io setup ####### -->
 <script src="https://cdn.socket.io/socket.io-1.3.2.js"></script>
 <script>
 	var socket = io();
     socket.on('move', function (doc) {
-        var mu = "<div class='row doc'><div class='one-third column'><div class='timestamp'>" + doc.timestamp + "</div></div><div class='two-third column'><pre>" + doc.data + "</pre></div></div>";
+        var mu = "<div class='row doc'><div class='one-third column'><div class='timestamp'>" + doc.timestamp 
+               + "</div></div><div class='two-third column'><pre>" + doc.data + "</pre></div></div>";
         var main = document.getElementById('main');
         main.innerHTML = mu + main.innerHTML;
         window.setTimeout(function () {
@@ -30,6 +36,23 @@
             var newRow = main.childNodes[0];
             newRow.className = "row";
         }, 3000);
+    });
+    socket.on('sentMore', function (docs) {
+        //docs is an array of documents, sorted newest to oldest (biggest timestamp to smallest)
+        var mu = "";
+        for(var i = 0; i != docs.length; i++){
+            mu += "<div class='row'><div class='one-third column'><div class='timestamp'>" + docs[i].timestamp 
+               + "</div></div><div class='two-third column'><pre>" + docs[i].data + "</pre></div></div>";
+        }
+        var main = document.getElementById('main');
+        main.innerHTML = main.innerHTML + mu;
+    }
+    var getMore = function(){
+        socket.emit('more');
+    };
+    document.addEventListener("DOMContentLoaded", function(event){
+        var link = document.getElementById("more");
+        link.onClick = getMore;
     });
 </script>
 </body>

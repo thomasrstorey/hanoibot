@@ -745,13 +745,20 @@ input[type="checkbox"] {
   margin-top: 50px;
 }
 
+#more .row {
+  color: #AEAEAE;
+  text-align: center;
+}
+
 .timestamp {
   float: right;
   text-align: right;
   color: #AEAEAE;
 }
 .row.title {
+  margin-top: 30px;
   text-align: center;
+  color: #AEAEAE;
 }
 .row.doc {
   -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
