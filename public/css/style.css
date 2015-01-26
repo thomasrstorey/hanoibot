@@ -741,13 +741,18 @@ input[type="checkbox"] {
 
 /* Add custom styles here */
 
+#main {
+  margin-top: 50px;
+}
 
 .timestamp {
   float: right;
   text-align: right;
   color: #AEAEAE;
 }
-
+.row.title {
+  text-align: center;
+}
 .row.doc {
   -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 2s; /* Firefox < 16 */
@@ -760,26 +765,34 @@ input[type="checkbox"] {
 * --------------------------------------------------*/
 
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from { margin-top: -50px;
+           opacity: 0; }
+    to   { margin-top: 0px;
+           opacity: 1; }
 }
 
 /* Firefox < 16 */
 @-moz-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from { margin-top: -50px;
+           opacity: 0; }
+    to   { margin-top: 0px;
+           opacity: 1; }
 }
 
 /* Safari, Chrome and Opera > 12.1 */
 @-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from { margin-top: -50px;
+           opacity: 0; }
+    to   { margin-top: 0px;
+           opacity: 1; }
 }
 
 /* Internet Explorer */
 @-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from { margin-top: -50px;
+           opacity: 0; }
+    to   { margin-top: 0px;
+           opacity: 1; }
 }
 
 
