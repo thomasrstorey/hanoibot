@@ -16,6 +16,9 @@ var io 						= require('socket.io')(http);
 
 var configDB 				= require('./config/db.js');
 
+var State = require('./app/models/State');
+var Spans = require('./config/spans');
+
 // configuration ==============================================
 
 mongoose.connect(configDB.url); //connect to db
@@ -56,16 +59,34 @@ require('./app/handlebars.js')(hbs);
 
 // socket.io ====================================================
 
+var now = Date.now();
+var retrievals = 1;
 io.on('connection', function (socket) {
 	console.log("a user connected");
 	socket.on('disconnect', function () {
 		console.log("a user disconnected")
 	});
+	socket.on('more', function () {
+		console.log("request for more");
+		retrievals++;
+		console.log(now - Spans.oneDay*retrievals);
+		console.log(now - Spans.oneDay*(retrievals-1));
+		State.find({ timestamp : { $gte: now - Spans.oneDay*retrievals, $lte: now - Spans.oneDay*(retrievals-1) } }, function (err, docs){
+			console.log("retrievals: " + retrievals);
+			docs = _.sortBy(docs, function (doc) {
+				return -doc.timestamp;
+			});
+			docs = _.toArray(docs);
+			socket.emit('sentMore', docs);
+		});
+	});
 });
+
+
 
 // routes =======================================================
 
-require('./app/routes.js')(app, passport); //load routes
+require('./app/routes.js')(app, passport, now); //load routes
 
 // bot ==========================================================
 

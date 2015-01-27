@@ -1,4 +1,4 @@
-_ = require('underscore')
+_ = require('underscore');
 
 module.exports = function (hbs) {
 	hbs.registerHelper('list', function (docs) {

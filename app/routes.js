@@ -3,10 +3,10 @@
 var State = require('./models/State');
 var Spans = require('../config/spans');
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, now) {
 	//main page
 	app.get('/', function (req, res) {
-        State.find({ timestamp: { $gte: Date.now() - Spans.oneDay }}, function (err, docs) {
+        State.find({ timestamp: { $gte: now - Spans.oneDay }}, function (err, docs) {
             if(err){
                 console.log(err);
                 res.render('error.hbs', err);

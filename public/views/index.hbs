@@ -19,7 +19,7 @@
 </div>
 <div class="container" id="more">
     <div class="row">
-        <a href="#" id="moreLink"><i class="fa fa-ellipsis-h"></i></a>
+        <p id="moreLink"><i class="fa fa-ellipsis-h"></i></p>
     </div>
 </div>
 <!-- ###### socket.io setup ####### -->
@@ -46,13 +46,14 @@
         }
         var main = document.getElementById('main');
         main.innerHTML = main.innerHTML + mu;
-    }
+    });
     var getMore = function(){
         socket.emit('more');
     };
     document.addEventListener("DOMContentLoaded", function(event){
-        var link = document.getElementById("more");
-        link.onClick = getMore;
+        console.log("loaded");
+        var link = document.getElementById("moreLink");
+        link.onclick = getMore;
     });
 </script>
 </body>

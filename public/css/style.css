@@ -750,6 +750,11 @@ input[type="checkbox"] {
   text-align: center;
 }
 
+#moreLink {
+  color: #AEAEAE;
+  cursor: pointer;
+}
+
 .timestamp {
   float: right;
   text-align: right;
