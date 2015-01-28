@@ -18,8 +18,7 @@ module.exports = function (rate, depth, io, mongoose) {
 	
 	//takes a tower state and tweets it
 	var makeTweet = function (state) {
-		var tweet = convertState(state);
-		twit.post('statuses/update', { status: tweet }, function(err, data, response) {
+		twit.post('statuses/update', { status: state }, function(err, data, response) {
 			if(err){
 				console.log(err);
 			} else {
