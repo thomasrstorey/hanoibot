@@ -30,11 +30,19 @@
         var mu = "<div class='row doc'><div class='one-third column'><div class='timestamp'>" + doc.timestamp 
                + "</div></div><div class='two-third column'><pre>" + doc.data + "</pre></div></div>";
         var main = document.getElementById('main');
+        var oldRow = main.childNodes[main.childNodes.length-1];
         main.innerHTML = mu + main.innerHTML;
+        if(main.childNodes.length > 1000){
+            oldRow.className = "row clear";
+        }
         window.setTimeout(function () {
             var main = document.getElementById('main');
             var newRow = main.childNodes[0];
             newRow.className = "row";
+            if(main.childNodes.length > 1000){
+                var oldRow = main.childNodes[main.childNodes.length];
+                main.removeChild(oldRow);
+            }
         }, 3000);
     });
     socket.on('sentMore', function (docs) {

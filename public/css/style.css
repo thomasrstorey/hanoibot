@@ -772,6 +772,13 @@ input[type="checkbox"] {
          -o-animation: fadein 2s; /* Opera < 12.1 */
             animation: fadein 2s;
 }
+.row.clear {
+  -webkit-animation: fadeout 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadeout 2s; /* Firefox < 16 */
+        -ms-animation: fadeout 2s; /* Internet Explorer */
+         -o-animation: fadeout 2s; /* Opera < 12.1 */
+            animation: fadeout 2s;
+}
 
 /* Animation
 * --------------------------------------------------*/
@@ -805,6 +812,29 @@ input[type="checkbox"] {
            opacity: 0; }
     to   { margin-top: 0px;
            opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
 }
 
 
