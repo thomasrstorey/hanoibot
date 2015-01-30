@@ -40,7 +40,7 @@
             var newRow = main.childNodes[0];
             newRow.className = "row";
             if(main.childNodes.length > 1000){
-                var oldRow = main.childNodes[main.childNodes.length];
+                var oldRow = main.childNodes[main.childNodes.length-1];
                 main.removeChild(oldRow);
             }
         }, 3000);
