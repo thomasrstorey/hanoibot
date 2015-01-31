@@ -56,6 +56,7 @@ app.use(passport.session()); //persistent login sessions
 
 app.engine('hbs', require('hbs').__express); //handlebars engine
 require('./app/handlebars.js')(hbs);
+hbs.registerPartials('./public/views/partials/');
 
 // socket.io ====================================================
 

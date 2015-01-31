@@ -5,13 +5,15 @@
     <link rel="stylesheet" href="../css/style.css"> 
     <!-- ######### load fontawesome ######### -->
     <link rel="stylesheet" href="../libs/font-awesome/css/font-awesome.min.css"> 
+    <!-- ######### load modal stylsheet ########### -->
+    <link rel="stylesheet" href="../libs/css-modal/build/modal.css"> 
     <!-- ######### google fonts ######## -->
     <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div class="container">
     <div class="row title">
-     <h4><i class="fa fa-align-justify"></i></h4>
+     <h4><a href="#modal-about"><i class="fa fa-align-justify"></i></a></h4>
     </div>
 </div>
 <div class="container" id="main">
@@ -64,5 +66,8 @@
         link.onclick = getMore;
     });
 </script>
+
+{{> about}}
+
 </body>
 </html> 

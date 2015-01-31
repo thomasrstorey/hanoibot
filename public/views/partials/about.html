@@ -1,0 +1,40 @@
+<section class="modal--show" id="modal-about" tabindex="-1"
+        role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+
+    <div class="modal-inner">
+        <div class="modal-content">
+        	<h4>towering</h4>
+            <p>
+                Thomas R. Storey, 2015
+            </p>
+        	<p>
+        		<em>towering</em> is a bot that performs the solution to the canonical computer science puzzle known as the Tower of Hanoi.
+        	</p>
+        	<p>
+        		The puzzle was either invented or introduced to the western world in 1883 by French mathematician Édouard Lucas. It involves three posts, and a set of discs of various sizes. Each disc has a hole in the center, and so can be slid over each post. The objective of the puzzle is to move a stack of discs, in decreasing order of size from bottom to top, from the leftmost to the right most pole, without violating two rules. First, no disc can be stacked on top of a smaller disc. Second, only one disc may be moved at a time.
+        	</p>
+        	<p>
+        		A classical recursive solution to the problem is can be expressed like this:
+        		<p>
+        			To move the tower, consider the bottom disc. To move it to the third post, first move all the discs on top of it to the second post. Then move the bottom disc to the third post. Then move the tower from the second post to the third post.
+        		</p>
+        		Interestingly, a graph of all the possible moves of the Tower of Hanoi can be represented by a Sierpiński triangle, which is itself a recursive structure. Following the previously mentioned solution will trace the shortest paths between each of the corners of the triangle, creating a circumscribing loop around the whole possibility space of the puzzle.
+        	</p>
+        	<p>
+        		According to legend, somewhere there is a monastery where a group of monks are in the process of solving a 64-disc version of the puzzle, with the belief that when the puzzle is finished, time will end. They pass on this task to each successive generation of monks. Because the smallest number of moves in which the puzzle can be solved is 2<sup>n</sup> - 1, where n is the number of discs in the tower, at a rate of one move per second, it will take them roughly 585 billion years to finish.
+        	</p>
+        	<p>
+        		In <em>towering</em>, the current state of the puzzle is represented by a string of characters. Each character corresponds to a disc. The first character, moving from left to right, represents the smallest disc, and the rightmost character stands for the largest disc. If the character is a vowel, it is on the first post. If it is a consonant, it's on the second post. If it is a space, it is on the third post.
+        	</p>
+        	<p>
+        		The bot performs at a rate of one move per minute. This makes it very unlikely that it will ever finish. Each line, representing a state of the puzzle, becomes a stanza in a vast, epic poem or song written in an inhuman language. It prompts the reader to become aware of the sublimity of time and its passing. 
+        	</p>
+            <p>
+                When(?) the poem is complete, the last line will be silence.
+            </p>
+        </div>
+    </div>
+
+    <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
+        data-dismiss="modal">?</a>
+</section>
