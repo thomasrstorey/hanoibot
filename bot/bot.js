@@ -1,12 +1,13 @@
 var _ 			= require('underscore');
-var Twit 		= require('twit');
+//var Twit 		= require('twit');
 var config		= require('./cfg.js');
 var TOH		= require('../build/Release/toh');
 var State 		  = require('../app/models/State');
+var fs = require('fs');
 
-module.exports = function (rate, depth, io, mongoose) {
+module.exports = function (rate, depth, io) {
 	var that = {};
-	var twit;
+	//var twit;
 	var toh;
 	var moveNum;
 	var vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
@@ -14,18 +15,6 @@ module.exports = function (rate, depth, io, mongoose) {
 					  'j', 'k', 'l', 'm', 'n', 'p',
 					  'q', 'r', 's', 't', 'v', 'w',
 					  'x', 'z'];
-
-	
-	//takes a tower state and tweets it
-	var makeTweet = function (state) {
-		twit.post('statuses/update', { status: state }, function(err, data, response) {
-			if(err){
-				console.log(err);
-			} else {
-				console.log('tweet: ' + msg);
-			}
-		});
-	};
 
 	var makeTest = function (state) {
 		console.log(state);
@@ -49,59 +38,47 @@ module.exports = function (rate, depth, io, mongoose) {
 		return state;
 	};
 
-	var postToDB = function (str, ts, cb) {
-		var newState = new State();
-		newState.timestamp = ts;
-		newState.data = str;
-		newState.save(function(err){
-			if(err){
-				console.log(err.message);
-				throw err;
-			} else {
-				return cb(null, {
-					timestamp: ts,
-					data: str
-				});
-			}
+	var writeToFile = function (ts, str, cb) {
+		fs.appendFile(__dirname+"/log.txt", ts + "," + str + "\n", function (err) {
+			return cb(err, {
+				timestamp: ts,
+				data: str
+			});
 		});
-	};
+	}
 
 	// start the bot
 	var init = function () {
-		twit = new Twit(config.twitter);
+		//twit = new Twit(config.twitter);
 		toh = new TOH.Tower(depth);
 		moveNum = 0;
-		// connect to mongoDB database
-		//mongoose.connect(config.db.url);
-		State.count({}, function(err, count){
-			if(err){
-				console.log(err);
-			} else {
-				(function towering(start){
-					while(moveNum < count){
-						toh.next();
-						moveNum++;
-					}
-					setTimeout(function(){
-						var msg = convertState(toh.next());
-						if(config.test){
-							makeTest(msg);
-						} else {
-							makeTweet(msg);
-						}
-						postToDB(msg, Date.now(), function(err, data){
-							if(err){
-								console.log(err);
-							} else {
-								io.emit('move', data);
-							}
-						});
-						moveNum++;
-						towering();
-					}, rate);
-				})();
-			}
-		});
+
+		var count = 0;
+		fs.createReadStream(__dirname+"/log.txt")
+		  .on('data', function(chunk) {
+		    for (var i = 0; i != chunk.length; ++i)
+		      if (chunk[i] == 10) count++;
+		  })
+		  .on('end', function() {
+		    (function towering(start){
+				while(moveNum < count){
+					toh.next();
+					moveNum++;
+				}
+				setTimeout(function(){
+					var msg = convertState(toh.next());
+				    writeToFile(Date.now(), msg, function (err, data) {
+				    	if(err){
+				    		console.log(err);
+				    	} else {
+				    		io.emit('move', data);
+				    	}
+				    });
+					moveNum++;
+					towering();
+				}, rate);
+			})();
+		  });
 	};
 
 	that.init = init;

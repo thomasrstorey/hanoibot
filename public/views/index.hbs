@@ -29,8 +29,8 @@
 <script>
 	var socket = io();
     socket.on('move', function (doc) {
-        var mu = "<div class='row doc'><div class='one-third column'><div class='timestamp'>" + doc.timestamp 
-               + "</div></div><div class='two-third column'><pre>" + doc.data + "</pre></div></div>";
+        var mu = "<div class='row doc'><div class='five columns'><div class='timestamp'>" + doc.timestamp 
+               + "</div></div><div class='two-thirds column'><pre>" + doc.data + "</pre></div></div>";
         var main = document.getElementById('main');
         var oldRow = main.childNodes[main.childNodes.length-1];
         main.innerHTML = mu + main.innerHTML;
@@ -46,24 +46,6 @@
                 main.removeChild(oldRow);
             }
         }, 3000);
-    });
-    socket.on('sentMore', function (docs) {
-        //docs is an array of documents, sorted newest to oldest (biggest timestamp to smallest)
-        var mu = "";
-        for(var i = 0; i != docs.length; i++){
-            mu += "<div class='row'><div class='one-third column'><div class='timestamp'>" + docs[i].timestamp 
-               + "</div></div><div class='two-third column'><pre>" + docs[i].data + "</pre></div></div>";
-        }
-        var main = document.getElementById('main');
-        main.innerHTML = main.innerHTML + mu;
-    });
-    var getMore = function(){
-        socket.emit('more');
-    };
-    document.addEventListener("DOMContentLoaded", function(event){
-        console.log("loaded");
-        var link = document.getElementById("moreLink");
-        link.onclick = getMore;
     });
 </script>
 

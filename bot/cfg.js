@@ -8,7 +8,7 @@ module.exports = {
 		access_token_secret 	: "Kz5fSTzhIfe3xWcSa2uM8XyQQBJrELqeMi8DMAa8ba7KM"
 	},
 	test   	: true,
-	rate	: 15000,
+	rate	: 60000,
 	depth	: 64,
 	db 		: {
 		url						: 'mongodb://localhost:27017/hanoijs-dev'

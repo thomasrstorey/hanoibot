@@ -5,8 +5,6 @@ var express 				= require('express');
 var app      				= express();
 var http 					= require('http').Server(app);
 var port     				= process.env.PORT || 8282;
-var mongoose 				= require('mongoose');
-var passport 				= require('passport');
 var methodOverride			= require('method-override');
 var cookieParser 			= require('cookie-parser');
 var bodyParser  			= require('body-parser');
@@ -16,12 +14,7 @@ var io 						= require('socket.io')(http);
 
 var configDB 				= require('./config/db.js');
 
-var State = require('./app/models/State');
-var Spans = require('./config/spans');
-
 // configuration ==============================================
-
-mongoose.connect(configDB.url); //connect to db
 
 app.use(cookieParser()); //use cookies for auth
 app.use(bodyParser()); //parse html forms
@@ -44,14 +37,6 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/public/views');
 
-// passport ====================================================
-
-require('./config/passport')(passport); //config passport
-
-app.use(session({ secret: 'tohisacyclicalrecursivestructure' }));
-app.use(passport.initialize()); //start passport
-app.use(passport.session()); //persistent login sessions
-
 // handlebars ===================================================
 
 app.engine('hbs', require('hbs').__express); //handlebars engine
@@ -67,33 +52,17 @@ io.on('connection', function (socket) {
 	socket.on('disconnect', function () {
 		console.log("a user disconnected")
 	});
-	socket.on('more', function () {
-		console.log("request for more");
-		retrievals++;
-		console.log(now - Spans.oneDay*retrievals);
-		console.log(now - Spans.oneDay*(retrievals-1));
-		State.find({ timestamp : { $gte: now - Spans.oneDay*retrievals, $lte: now - Spans.oneDay*(retrievals-1) } }, function (err, docs){
-			console.log("retrievals: " + retrievals);
-			docs = _.sortBy(docs, function (doc) {
-				return -doc.timestamp;
-			});
-			docs = _.toArray(docs);
-			socket.emit('sentMore', docs);
-		});
-	});
 });
-
-
 
 // routes =======================================================
 
-require('./app/routes.js')(app, passport, now); //load routes
+require('./app/routes.js')(app); //load routes
 
 // bot ==========================================================
 
-require('./bot/towering.js')(io, mongoose);
+require('./bot/towering.js')(io);
 
 // run ==========================================================
 
 http.listen(port);
-console.log("hanoijs launched on port " + port);
+console.log("towering launched on port " + port);
